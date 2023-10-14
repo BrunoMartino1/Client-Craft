@@ -13,6 +13,17 @@
         <!-- PWA  -->
         <meta name="theme-color" content="#6777ef"/>
         <link rel="apple-touch-icon" href="{{ asset('logo.png') }}">
+        {{--
+             TEST - This was supposed to fix page loading on IOS (it shows a whitescreen while the
+             content is not loaded vs a splash art) 
+        --}}
+        {{-- <link href="/apple_splash_2048.png" sizes="2048x2732" rel="apple-touch-startup-image" />
+        <link href="/apple_splash_1668.png" sizes="1668x2224" rel="apple-touch-startup-image" />
+        <link href="/apple_splash_1536.png" sizes="1536x2048" rel="apple-touch-startup-image" />
+        <link href="/apple_splash_1125.png" sizes="1125x2436" rel="apple-touch-startup-image" />
+        <link href="/apple_splash_1242.png" sizes="1242x2208" rel="apple-touch-startup-image" />
+        <link href="/apple_splash_750.png" sizes="750x1334" rel="apple-touch-startup-image" />
+        <link href="/apple_splash_640.png" sizes="640x1136" rel="apple-touch-startup-image" /> --}}
         <link rel="manifest" href="{{ asset('/manifest.json') }}">
 
         <!-- Scripts -->

@@ -20,7 +20,11 @@ const IconMap = [
     "account-outline",
     "contact-outline",
     "calendar-outline",
+    "search-outline",
+    "close",
+    "menu",
 ] as const;
+
 export type IconTypes = (typeof IconMap)[number];
 
 type Sizes = {
