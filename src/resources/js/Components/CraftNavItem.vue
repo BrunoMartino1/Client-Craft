@@ -79,6 +79,7 @@ const root = ref<HTMLElement | null>(null);
 const { width: rootWidth } = useElementSize(root);
 const isCompact = computed(() => rootWidth.value <= 100);
 const open = ref(false);
+//
 </script>
 
 <style scoped lang="scss">
