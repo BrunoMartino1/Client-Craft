@@ -3,7 +3,8 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build && vite build --ssr && vite build && vite build --ssr --ssr"
+        "build": "vite build && vite build --ssr && vite build && vite build --ssr --ssr",
+        "prepare": "cd .. && husky install ./src/.husky"
     },
     "devDependencies": {
         "@inertiajs/vue3": "^1.0.0",
@@ -15,7 +16,9 @@
         "@vue/server-renderer": "^3.2.31",
         "autoprefixer": "^10.4.7",
         "axios": "^1.1.2",
+        "husky": "^8.0.3",
         "laravel-vite-plugin": "^0.8.1",
+        "lint-staged": "^15.0.2",
         "postcss": "^8.4.14",
         "sass": "^1.68.0",
         "sass-loader": "^13.3.2",
