@@ -1,5 +1,6 @@
 <template>
     <img
+        class="object-fill"
         :src="`/icons/${icon}.svg`"
         :width="'string' === typeof size ? sizeMap[size] : size"
         :alt="`icon ${icon}`"
@@ -11,27 +12,39 @@ import { computed } from "vue";
 
 // All new icons should be added here
 const IconMap = [
-    "dashboard-outline",
-    "arrowUp-outline",
-    "arrowDown-outline",
-    "dot-bold",
+    "profile-circle-outline",
+    "notification-outline",
+    "time-circle-outline",
     "activities-outline",
-    "lead-outline",
-    "account-outline",
-    "contact-outline",
+    "dashboard-outline",
+    "arrowDown-outline",
     "calendar-outline",
+    "account-outline",
+    "message-outline",
+    "arrowUp-outline",
+    "contact-outline",
     "search-outline",
+    "filter-outline",
+    "lead-outline",
+    "add-outline",
+    "dot-bold",
     "close",
     "menu",
+    // Below here we have flags
+    "brazil-rounded",
+    "portugal-rounded",
+    "united-states-rounded",
 ] as const;
 
 export type IconTypes = (typeof IconMap)[number];
 
 type Sizes = {
     default: number;
+    full: string;
 };
 const sizeMap: Sizes = {
     default: 23,
+    full: "100%",
 } as const;
 
 interface Props {
