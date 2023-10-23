@@ -2,7 +2,7 @@
     <section
         :class="{
             'md:w-1/5 md:block': breakpoints.greaterOrEqual('lg').value,
-            'w-1/3 md:block':
+            'w-1/4 md:block':
                 breakpoints.between('md', 'lg').value && isSidebarOpen,
             'md:w-[70px]':
                 breakpoints.between('md', 'lg').value && !isSidebarOpen,
@@ -19,43 +19,10 @@
         "
         class="side-navigation flex md:flex-col w-full py-6 bg-black text-white md:h-screen transition-all duration-300 ease-in-out border-r border-blue-dark-soft overflow-x-hidden"
     >
-        <div
-            class="header flex flex-1 md:flex-none justify-between md:justify-center px-6 h-[10%]"
-            :class="{
-                '!px-0':
-                    breakpoints.between('md', 'lg').value && !isSidebarOpen,
-            }"
-        >
-            <transition-slide
-                :offset="{
-                    enter: [0, 0],
-                    leave: ['-100%', 0],
-                }"
-                group
-                mode="out-in"
-                :delay="{ enter: 300, leave: 0 }"
-            >
-                <img
-                    v-if="
-                        breakpoints.between('md', 'lg').value && !isSidebarOpen
-                    "
-                    src="/images/logo-mobile.svg"
-                    width="23"
-                    alt="mobile logo"
-                />
-                <img
-                    v-else
-                    src="/images/logo-desktop.svg"
-                    width="200"
-                    alt="desktop logo"
-                />
-            </transition-slide>
-            <CraftIcon
-                class="md:hidden"
-                icon="menu"
-                @click="isSidebarOpen = !isSidebarOpen"
-            />
-        </div>
+        <CraftSidebarHeader
+            :is-sidebar-open="isSidebarOpen"
+            @click="isSidebarOpen = !isSidebarOpen"
+        />
         <transition-slide :offset="['100%', 0]">
             <nav
                 v-if="breakpoints.greaterOrEqual('md').value || isSidebarOpen"
@@ -147,6 +114,7 @@
 <script setup lang="ts">
 import CraftNavItem from "@/Components/CraftNavItem.vue";
 import CraftIcon from "@/Components/CraftIcon.vue";
+import CraftSidebarHeader from "./CraftSidebarHeader.vue";
 import useBreakpoints from "@/Composables/useBreakpoints";
 import { computed, ref } from "vue";
 
