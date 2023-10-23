@@ -1,0 +1,4 @@
+{
+    "*.{js,ts,tsx,scss,css,md,vue}": ["prettier --write"],
+    "**/*.php": "./vendor/bin/pint --preset laravel"
+}
