@@ -1,6 +1,8 @@
 <?php
 
+use App\Mail\MailgunTeste;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -25,5 +27,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
+    Mail::to('arthurnassar@gmail.com')->send(new MailgunTeste());
+
     return Inertia::render('Dashboard');
 })->name('dashboard');
