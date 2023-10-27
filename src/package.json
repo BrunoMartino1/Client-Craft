@@ -4,7 +4,9 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build && vite build --ssr && vite build && vite build --ssr --ssr",
-        "prepare": "cd .. && husky install ./src/.husky"
+        "prepare": "cd .. && husky install ./src/.husky",
+        "commitlint": "commitlint --edit",
+        "preinstall": "npx only-allow npm"
     },
     "devDependencies": {
         "@inertiajs/vue3": "^1.0.0",
