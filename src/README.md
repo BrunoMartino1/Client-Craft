@@ -44,6 +44,8 @@ The git file exists at the root folder but all the project files are located ins
 
     $ npm run serve
 
+-   Open locally on the localhost:8000 address
+
 ## Workflow
 
 -   A ticket is created on Jira and assigned to the Developer.
