@@ -42,7 +42,7 @@ The git file exists at the root folder but all the project files are located ins
 
     $ php artisan serve
 
-    $ npm run serve
+    $ npm run dev
 
 -   Open locally on the localhost:8000 address
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use App\Mail\MailgunTeste;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Mail;
@@ -27,7 +28,13 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    Mail::to('arthurnassar@gmail.com')->send(new MailgunTeste());
+    // Mail::to('arthurnassar@gmail.com')->send(new MailgunTeste());
 
     return Inertia::render('Dashboard');
 })->name('dashboard');
+
+Route::get('/login', function () {
+    return Inertia::render('Auth/Login');
+});
+
+Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
