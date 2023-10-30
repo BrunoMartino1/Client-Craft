@@ -38,6 +38,8 @@ The git file exists at the root folder but all the project files are located ins
 
     $ composer install
 
+-   Create a .env file and ask someone from the team to giv you the data
+
 -   On 2 different terminals run the following commands
 
     $ php artisan serve
