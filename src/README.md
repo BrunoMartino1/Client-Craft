@@ -15,20 +15,99 @@ The git file exists at the root folder but all the project files are located ins
 
 ## Setup
 
-### Install PHP 8.1 or Later on your PC
+<details>
+<summary style="font-size: large;">Without chocolatey</summary>
 
-<a href="https://windows.php.net/download#php-8.1" target="_blank">PHP 8.1 Windows download</a>
+1.  Install PHP 8.1 or Later on your PC
 
-### Install the Composer 2.5.8 or later on your PC
+    <a href="https://windows.php.net/download#php-8.1" target="_blank">PHP 8.1 Windows download</a>
 
-<a href="https://getcomposer.org/download/" target="_blank">Composer 2.5.8 download</a>
+2.  Install the Composer 2.5.8 or later on your PC
 
-### Install Node.js 20.5.1 or later on your PC
+    <a href="https://getcomposer.org/download/" target="_blank">Composer 2.5.8 download</a>
 
-<a href="https://nodejs.org/en/download" target="_blank">Node.js LTS version</a>
+3.  Install Node.js 20.5.1 or later on your PC
 
--   CD Into the project folder
-    $ cd src/
+        <a href="https://nodejs.org/en/download" target="_blank">Node.js LTS version</a>
+
+    </details>
+
+<details>
+    <summary style="font-size: large;">With chocolatey</summary>
+    <span style="font-weight: bold; color: red"> Install chocolatey </span>
+
+-   First, ensure that you are using an administrative shell - you can also install as a non-admin, check out Non-Administrative Installation.
+    Install with powershell.exe
+-   With PowerShell, you must ensure Get-ExecutionPolicy is not Restricted. We suggest using Bypass to bypass the policy to get things installed or AllSigned for quite a bit more security.
+
+-   Run this command on the powershell:
+
+    > Get-ExecutionPolicy.
+
+-   If it returns Restricted, then run:
+
+    > Set-ExecutionPolicy AllSigned
+
+    or
+
+    > Set-ExecutionPolicy Bypass -Scope Process
+
+-   Now run the following command:
+
+    > Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
+-   Run `choco -v` to ensure that it was successfully installed
+
+<span style="font-weight: bold; color: red">Install PHP 8.1 or Later on your PC</span>
+
+-   Run:
+    > choco install php
+
+<span style="font-weight: bold; color: red">Install the Composer 2.5.8 or later on your PC</span>
+
+-   Run:
+    > choco install composer
+
+<span style="font-weight: bold; color: red">Install Node.js 20.5.1 or later on your PC</span>
+
+-   Run: > choco install nodejs.installer
+</details>
+
+### Restart your computer
+
+-   To ensure that everything works correctly restart your computer and run
+
+    > node -v
+
+    > npm -v
+
+    > composer -v
+
+    > php -v
+
+-   If all commands are successful proceed to the next step
+
+#### Open php.ini file and uncomment some extensions
+
+> $ php --ini
+
+Open the filepath for the php.ini file
+
+![Open php ini](./readme_assets/php-ini.png)
+
+-   Uncomment the lines below by removing the ; that is set before them
+
+    > extension=fileinfo
+
+    > extension=pdo_mysql
+
+    > extension=zip
+
+-   Don't forget to save the file
+
+### Move to the root of the project!
+
+> $ cd src/
 
 ### Install the project dependencies
 
