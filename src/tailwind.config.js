@@ -23,6 +23,7 @@ export default {
             "blue-dark-heavy": "#061940",
             "blue-dark": "#092257",
             "blue-dark-soft": "#0B2B6F",
+            "blue-dark-softer": "#23407D",
             green: "#028E10",
         },
         extend: {

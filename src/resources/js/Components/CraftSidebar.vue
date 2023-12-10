@@ -17,7 +17,7 @@
                 if (largerThanSm) isSidebarOpen = false;
             }
         "
-        class="side-navigation flex md:flex-col w-full py-6 bg-black text-white md:h-screen transition-all duration-300 ease-in-out border-r border-blue-dark-soft overflow-x-hidden"
+        class="side-navigation flex md:flex-col py-6 bg-black text-white md:h-screen transition-all duration-300 ease-in-out border-r border-blue-dark-soft overflow-x-hidden"
     >
         <CraftSidebarHeader
             :is-sidebar-open="isSidebarOpen"
@@ -122,7 +122,6 @@ const { largerThanSm, largerThanMd, largerThanLg, breakpoints } =
     useBreakpoints();
 
 const isSidebarOpen = ref(false);
-const test1 = ref(!isSidebarOpen.value);
 </script>
 
 <style scoped>

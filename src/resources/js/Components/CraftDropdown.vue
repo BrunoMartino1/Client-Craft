@@ -41,7 +41,27 @@
                         </p>
                     </li>
                 </ul>
-                <footer></footer>
+                <footer v-if="footer">
+                    <ul class="flex flex-col">
+                        <li
+                            v-for="footerItem in footer"
+                            :key="footerItem.label"
+                            @click="footerItem.callback"
+                            class="flex justify-start items-center flex-col rounded-lg px-3 py-[10px] hover:bg-blue-dark-soft transition-colors duration-300 gap-2"
+                        >
+                            <span class="flex items-center gap-4 w-full"
+                                ><CraftIcon
+                                    v-if="footerItem.icon"
+                                    :icon="footerItem.icon"
+                                    :size="17"
+                                />
+                                <p class="text-xs leading-loose">
+                                    {{ footerItem.label }}
+                                </p></span
+                            >
+                        </li>
+                    </ul>
+                </footer>
             </div>
         </transition-slide>
     </div>
@@ -66,11 +86,16 @@ interface Props {
         value: string;
         message?: string;
     }[];
+    footer?: {
+        icon: IconTypes;
+        label: string;
+        callback?: <T>() => T | void;
+    }[];
 }
 const dropdown = ref<HTMLUListElement | null>(null);
 
 onClickOutside(dropdown, (event) =>
-    dropdownOpen.value ? (dropdownOpen.value = !dropdownOpen.value) : null
+    dropdownOpen.value ? (dropdownOpen.value = !dropdownOpen.value) : null,
 );
 
 const props = defineProps<Props>();

@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,5 +24,10 @@ class AppServiceProvider extends ServiceProvider
         if (env('APP_ENV') !== 'local') {
             URL::forceScheme('https');
         }
+
+        /* Disabling lazy loading on development can help prevent relationship issues on Production later */
+        /** @var \Illuminate\Foundation\Application $app */
+        $app = $this->app;
+        Model::preventLazyLoading(! $app->isProduction());
     }
 }

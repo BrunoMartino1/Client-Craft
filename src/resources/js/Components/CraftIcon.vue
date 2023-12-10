@@ -7,14 +7,18 @@
     />
 </template>
 
-<script setup lang="ts">
-import { computed } from "vue";
-
+<script lang="ts">
 // All new icons should be added here
 const IconMap = [
+    "socialMedia/twitter",
+    "socialMedia/facebook",
+    "socialMedia/google",
+    "socialMedia/github",
+    "information-circle-outline",
     "profile-circle-outline",
     "notification-outline",
     "time-circle-outline",
+    "show-outline-black",
     "activities-outline",
     "dashboard-outline",
     "arrowDown-outline",
@@ -23,6 +27,7 @@ const IconMap = [
     "message-outline",
     "arrowUp-outline",
     "contact-outline",
+    "logout-outline",
     "search-outline",
     "filter-outline",
     "lead-outline",
@@ -37,6 +42,10 @@ const IconMap = [
 ] as const;
 
 export type IconTypes = (typeof IconMap)[number];
+</script>
+
+<script setup lang="ts">
+import { computed } from "vue";
 
 type Sizes = {
     default: number;
@@ -54,7 +63,7 @@ interface Props {
 const imageHeight = computed(() =>
     "string" === typeof props.size
         ? sizeMap[props.size] + "px"
-        : props.size + "px"
+        : props.size + "px",
 );
 const props = withDefaults(defineProps<Props>(), {
     size: "default",

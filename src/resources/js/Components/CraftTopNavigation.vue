@@ -1,3 +1,16 @@
+<script setup lang="ts">
+import CraftIcon from "@/Components/CraftIcon.vue";
+import CraftDropdown from "./CraftDropdown.vue";
+import CraftAvatar from "./CraftAvatar.vue";
+import route from "ziggy-js";
+import axios from "axios";
+import { router } from "@inertiajs/vue3";
+
+const callLogoutRoute = () => {
+    axios.post(route("logout")).then((res) => {});
+};
+</script>
+
 <template>
     <nav
         ref="topNavigation"
@@ -48,7 +61,7 @@
                     },
                 ]"
             >
-                <CraftIcon icon="brazil-rounded" />
+                <CraftIcon icon="united-states-rounded" />
             </CraftDropdown>
 
             <CraftDropdown
@@ -69,6 +82,17 @@
                         value: 'lastview',
                     },
                 ]"
+                :footer="[
+                    {
+                        icon: 'information-circle-outline',
+                        label: 'About',
+                    },
+                    {
+                        icon: 'logout-outline',
+                        label: 'Logout',
+                        callback: callLogoutRoute,
+                    },
+                ]"
             >
                 <div
                     class="flex items-center gap-[5px] bg-blue-dark-heavy rounded-full py-1 pr-2"
@@ -81,9 +105,3 @@
         </div>
     </nav>
 </template>
-
-<script setup lang="ts">
-import CraftIcon from "@/Components/CraftIcon.vue";
-import CraftDropdown from "./CraftDropdown.vue";
-import CraftAvatar from "./CraftAvatar.vue";
-</script>
