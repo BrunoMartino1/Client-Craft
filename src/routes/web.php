@@ -28,6 +28,10 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/media/{fileName}', function (string $fileName) {
+    return response()->file('images/'.$fileName);
+});
+
 Route::get('/signup', function () {
     return Inertia::render('Auth/Signup');
 });
@@ -59,6 +63,7 @@ Route::post('/logout', function (Request $request) {
         abort(500, 'Unexpected error logging out');
     }
 })->name('logout');
+
 // Routes that should only be accessible by auth:sanctum verified users
 Route::middleware(['web', 'auth:sanctum'])->group(function () {
     Route::get('/dashboard', function () {
