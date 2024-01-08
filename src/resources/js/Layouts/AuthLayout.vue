@@ -1,7 +1,15 @@
-<script setup>
+<script setup lang="ts">
 import CraftIcon from "@/Components/CraftIcon.vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
 import CraftButton from "@/Components/CraftButton.vue";
+
+interface Props {
+    submitting: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+    submitting: false,
+});
 
 const emit = defineEmits(["submit"]);
 </script>
@@ -32,7 +40,13 @@ const emit = defineEmits(["submit"]);
                 <div class="fieldsContainer flex flex-col gap-4 mb-8">
                     <slot name="form" />
                 </div>
-                <CraftButton type="submit"> Log in </CraftButton>
+                <CraftButton
+                    type="submit"
+                    :loading="submitting"
+                    class="bg-blue-light-heavy"
+                >
+                    Log in
+                </CraftButton>
             </form>
             <div class="footerActions mt-8 flex flex-col gap-8">
                 <slot name="footerActions">
@@ -44,18 +58,18 @@ const emit = defineEmits(["submit"]);
                     </div>
                     <div class="separator">or</div>
                     <div class="socialMediaLogin flex justify-center gap-6">
-                        <Link href="#"
-                            ><CraftIcon icon="socialMedia/facebook"
-                        /></Link>
-                        <Link href="#"
-                            ><CraftIcon icon="socialMedia/twitter"
-                        /></Link>
-                        <Link href="#"
-                            ><CraftIcon icon="socialMedia/github"
-                        /></Link>
-                        <Link href="#"
-                            ><CraftIcon icon="socialMedia/google"
-                        /></Link>
+                        <Link href="#">
+                            <CraftIcon icon="socialMedia/facebook" />
+                        </Link>
+                        <Link href="#">
+                            <CraftIcon icon="socialMedia/twitter" />
+                        </Link>
+                        <Link href="#">
+                            <CraftIcon icon="socialMedia/github" />
+                        </Link>
+                        <Link href="#">
+                            <CraftIcon icon="socialMedia/google" />
+                        </Link>
                     </div>
                 </slot>
             </div>
@@ -82,6 +96,7 @@ const emit = defineEmits(["submit"]);
     &::before {
         margin-right: 10px;
     }
+
     &::after {
         margin-left: 10px;
     }

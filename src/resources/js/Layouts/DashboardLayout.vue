@@ -1,15 +1,16 @@
 <template>
     <div class="flex flex-col h-screen md:flex-row w-screen text-white">
         <!-- Sidebar -->
-        <CraftSidebar />
+        <CraftSidebar class="md:absolute z-50" />
 
         <!-- Page Content -->
         <section
-            class="main-content flex flex-col w-full h-full bg-blue-dark-heavy"
+            class="main-content transition-all pt-[75px] md:pt-0 md:pl-[70px] flex flex-col w-full h-full bg-blue-dark-heavy"
         >
             <CraftTopNavigation />
-            <main class="order-1 md:order-2 h-full p-8 flex-1">
-                <h1 class="text-2xl font-semibold mb-4">Dashboard</h1>
+            <main
+                class="order-1 md:order-2 flex flex-col flex-1 p-8 overflow-y-auto"
+            >
                 <!-- Your page content goes here -->
                 <slot />
             </main>
@@ -24,4 +25,9 @@ import CraftTopNavigation from "@/Components/CraftTopNavigation.vue";
 
 <style scoped>
 /* Add your custom styles here */
+@media (min-width: 1024px) {
+    .main-content {
+        padding-left: min(20%, 250px);
+    }
+}
 </style>

@@ -21,6 +21,15 @@ class Value extends Model
     use HasFactory;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'apiName', 'c_object_id', 'field_id', 'string', 'integer',
+    ];
+
+    /**
      * Get the field associated with the value.
      */
     public function field()

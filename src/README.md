@@ -150,3 +150,9 @@ Click on "Mostrar a Saída do Comando" to see the full error message.
 Fix the issues before proceeding with the commit.
 
 <span style="font-weight: bold; color: red">As last resort the git commit -m "SOMETHING" --no-verify can be used (this will prevent the commitlint run)</span>
+
+## Working with CObjects
+
+To create a new CObject use this
+$builder = new App\Repositories\CObjectRepository();
+$builder->create('Leads')->addField('name', App\Enums\DataTypes::STRING)->save();

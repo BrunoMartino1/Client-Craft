@@ -4,8 +4,10 @@ import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { ZiggyVue } from "../../vendor/tightenco/ziggy/dist/vue.m";
 // This library provides Vue transitions ready to use
 import VueTransitions from "@morev/vue-transitions";
+import Vue3Datatable from "@bhplugin/vue3-datatable";
 
 import "@morev/vue-transitions/styles";
+// import "@bhplugin/vue3-datatable/dist/style.css";
 import "./bootstrap";
 import "../scss/app.scss";
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
@@ -15,10 +17,11 @@ createInertiaApp({
     resolve: (name) =>
         resolvePageComponent(
             `./Pages/${name}.vue`,
-            import.meta.glob("./Pages/**/*.vue")
+            import.meta.glob("./Pages/**/*.vue"),
         ),
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
+            .mixin({ components: { Vue3Datatable } })
             .use(plugin)
             .use(VueTransitions)
             .use(ZiggyVue)

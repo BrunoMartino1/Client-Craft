@@ -4,7 +4,6 @@ use App\Http\Controllers\LoginController;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -36,20 +35,23 @@ Route::get('/signup', function () {
     return Inertia::render('Auth/Signup');
 });
 
+Route::get('/cobjects/{apiName}', function (string $apiName) {
+    $builder = new App\Repositories\CObjectRepository();
+
+    return $builder->getAllCObjectsWithTypeAndValues('Contact');
+})->name('getCobjects');
+
+Route::get('/cobject/fields/{apiName}', function (string $apiName) {
+    $repository = new App\Repositories\CObjectRepository();
+
+    return $repository->getCObjectFields($apiName);
+})->name('getCobjectFields');
+
 /**
  * Render login page
  */
 Route::middleware(['web'])->get('/login', [LoginController::class, 'render']);
-
-/**
- * Render login page
- */
-Route::middleware(['web'])->get('/register', function () {
-    return Inertia::render('Auth/CraftRegister');
-});
-
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
-
 Route::post('/logout', function (Request $request) {
     try {
         Auth::guard('web')->logout();
@@ -64,12 +66,21 @@ Route::post('/logout', function (Request $request) {
     }
 })->name('logout');
 
-// Routes that should only be accessible by auth:sanctum verified users
-Route::middleware(['web', 'auth:sanctum'])->group(function () {
-    Route::get('/dashboard', function () {
-        // Mail::to('arthurnassar@gmail.com')->send(new Signup());
-        // Auth::guard('web')->logout();
+/**
+ * Render login page
+ */
+Route::middleware(['web'])->get('/register', function () {
+    return Inertia::render('Auth/CraftRegister');
+});
 
+// Routes that should only be accessible by auth:sanctum verified users
+Route::middleware(['web', 'auth:sanctum'])->prefix('dashboard')->name('dashboard')->group(function () {
+    Route::get('/', function () {
         return Inertia::render('Dashboard');
-    })->name('dashboard');
+    })->name('.index');
+
+    Route::get('/cobject/{objectApiName}', function () {
+        return Inertia::render('CObjectPage');
+    });
+
 });

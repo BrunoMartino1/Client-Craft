@@ -19,18 +19,31 @@ class CObject extends Model
     use HasFactory;
 
     /**
-     * Get the Fields for the CObject.
-     */
-    public function fields(): HasMany
-    {
-        return $this->hasMany(Field::class, 'c_object_id');
-    }
-
-    /**
      * BELONGS TO Relatioships.
      */
     public function cobject(): BelongsTo
     {
         return $this->belongsTo(CObjectType::class, 'c_object_type_id');
+    }
+
+    /**
+     * Get the CObjectType for the CObject.
+     */
+    public function cObjectType(): BelongsTo
+    {
+        return $this->belongsTo(CObjectType::class, 'c_object_type_id');
+    }
+
+    /**
+     * Get the Values for the CObject.
+     */
+    public function values(): HasMany
+    {
+        return $this->hasMany(Value::class, 'c_object_id');
+    }
+
+    public function fields()
+    {
+        return $this->morphMany(Field::class, 'c_object_type_id');
     }
 }

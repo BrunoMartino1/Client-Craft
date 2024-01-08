@@ -1,11 +1,9 @@
 <template>
     <section
         :class="{
-            'md:w-1/5 md:block': breakpoints.greaterOrEqual('lg').value,
-            'w-1/4 md:block':
-                breakpoints.between('md', 'lg').value && isSidebarOpen,
-            'md:w-[70px]':
-                breakpoints.between('md', 'lg').value && !isSidebarOpen,
+            'md:w-1/5 max-w-[250px]': isGreaterOrEqualLg,
+            'w-1/4': isBetweenMdAndLg && isSidebarOpen,
+            'md:w-[70px]': isBetweenMdAndLg && !isSidebarOpen,
         }"
         @mouseenter="
             () => {
@@ -17,7 +15,7 @@
                 if (largerThanSm) isSidebarOpen = false;
             }
         "
-        class="side-navigation flex md:flex-col py-6 bg-black text-white md:h-screen transition-all duration-300 ease-in-out border-r border-blue-dark-soft overflow-x-hidden"
+        class="side-navigation flex md:flex-col py-6 bg-black text-white md:h-screen transition-all duration-300 ease-in-out border-r border-blue-dark-soft"
     >
         <CraftSidebarHeader
             :is-sidebar-open="isSidebarOpen"
@@ -25,7 +23,7 @@
         />
         <transition-slide :offset="['100%', 0]">
             <nav
-                v-if="breakpoints.greaterOrEqual('md').value || isSidebarOpen"
+                v-if="isGreaterOrEqualMd || isSidebarOpen"
                 class="navigation-list absolute md:relative overflow-y-scroll scrollbar-none md:block h-screen w-screen pt-6 md:pt-0 md:w-auto md:h-auto bg-blue-dark-heavy md:bg-black"
             >
                 <CraftIcon
@@ -34,11 +32,9 @@
                     class="md:hidden absolute top-6 right-6"
                 />
                 <h2
-                    class="navigation-title text-blue-light-heavy text-xs font-bold pl-6 mb-4"
+                    class="navigation-title text-blue-light-heavy text-xs font-bold pl-6 mb-4 transition-all"
                     :class="{
-                        '!pl-0 text-center':
-                            breakpoints.between('md', 'lg').value &&
-                            !isSidebarOpen,
+                        '!pl-3': isBetweenMdAndLg && !isSidebarOpen,
                     }"
                 >
                     MENU
@@ -55,14 +51,12 @@
                 <CraftNavItem
                     label="Accounts"
                     icon="account-outline"
-                    path="/accounts"
+                    path="dashboard/cobject/Account"
                 />
                 <h2
-                    class="navigation-title text-blue-light-heavy text-xs font-bold pl-6 mb-4"
+                    class="navigation-title text-blue-light-heavy text-xs font-bold pl-6 mb-4 transition-all"
                     :class="{
-                        '!pl-0 text-center':
-                            breakpoints.between('md', 'lg').value &&
-                            !isSidebarOpen,
+                        '!pl-3': isBetweenMdAndLg && !isSidebarOpen,
                     }"
                 >
                     LEADS
@@ -83,11 +77,9 @@
                     path="/calendar"
                 />
                 <h2
-                    class="navigation-title text-blue-light-heavy text-xs font-bold pl-6 mb-4"
+                    class="navigation-title text-blue-light-heavy text-xs font-bold pl-6 mb-4 transition-all"
                     :class="{
-                        '!pl-0 text-center':
-                            breakpoints.between('md', 'lg').value &&
-                            !isSidebarOpen,
+                        '!pl-3': isBetweenMdAndLg && !isSidebarOpen,
                     }"
                 >
                     CASES
@@ -122,6 +114,9 @@ const { largerThanSm, largerThanMd, largerThanLg, breakpoints } =
     useBreakpoints();
 
 const isSidebarOpen = ref(false);
+const isGreaterOrEqualMd = breakpoints.greaterOrEqual("md");
+const isGreaterOrEqualLg = breakpoints.greaterOrEqual("lg");
+const isBetweenMdAndLg = breakpoints.between("md", "lg");
 </script>
 
 <style scoped>

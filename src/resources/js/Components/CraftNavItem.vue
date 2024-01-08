@@ -4,13 +4,13 @@
             :is="path ? Link : 'div'"
             @click="open = !open"
             :href="path"
-            class="navigation-item transition-colors flex mb-[5px] px-6 py-[14px] lg:hover:bg-blue-dark hover:cursor-pointer text-sm"
+            class="navigation-item transition-all flex mb-[5px] px-5 py-[14px] lg:hover:bg-blue-dark hover:cursor-pointer text-sm"
             :class="{
                 'bg-blue-dark-soft border-r-4 border-r-blue-light-heavy':
                     path === $page.url ||
                     children?.find((child) => child.path === $page.url),
                 'bg-transparent': !open,
-                '!px-0 justify-center': isCompact,
+                '!pl-5 pr-0': isCompact,
             }"
         >
             <CraftIcon
