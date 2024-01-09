@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Foundation\Application;
 use App\Http\Controllers\LoginController;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
