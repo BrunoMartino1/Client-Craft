@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Foundation\Application;
 use App\Http\Controllers\LoginController;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
@@ -51,7 +50,6 @@ Route::get('/cobject/fields/{apiName}', function (string $apiName) {
 /**
  * Render register page
  */
-
 Route::middleware(['web'])->get('/register', function () {
     return Inertia::render('Auth/CraftRegister');
 });

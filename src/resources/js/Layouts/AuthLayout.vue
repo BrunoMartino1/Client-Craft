@@ -1,9 +1,7 @@
 <script setup lang="ts">
-
 import CraftIcon from "@/Components/CraftIcon.vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
 import CraftButton from "@/Components/CraftButton.vue";
-import CraftIcon from "@/Components/CraftIcon.vue";
 
 interface Props {
     authData: {
@@ -14,8 +12,6 @@ interface Props {
         pageFooterLink: string;
     };
 }
-
-const props = defineProps<Props>();
 
 interface Props {
     submitting: boolean;
@@ -54,11 +50,11 @@ const emit = defineEmits(["submit"]);
                 <div class="fieldsContainer flex flex-col gap-4 mb-8">
                     <slot name="form" />
                 </div>
-                
-                <CraftButton 
-                    type="submit
+
+                <CraftButton
+                    type="submit"
                     :loading="submitting"
-                    class="bg-blue-light-heavy""
+                    class="bg-blue-light-heavy"
                 >
                     {{ authData.submitButtonLabel }}
                 </CraftButton>
