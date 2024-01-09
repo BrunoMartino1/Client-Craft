@@ -49,8 +49,27 @@ Route::get('/cobject/fields/{apiName}', function (string $apiName) {
 })->name('getCobjectFields');
 
 /**
- * Render login page
+ * Render register page
  */
+
+Route::middleware(['web'])->get('/register', function () {
+    return Inertia::render('Auth/CraftRegister');
+});
+
+/**
+ * Render resetPassword page
+ */
+Route::middleware(['web'])->get('/resetpassword', function () {
+    return Inertia::render('Auth/ResetPassword');
+});
+
+/**
+ * Render forgotPassword page
+ */
+Route::middleware(['web'])->get('/forgotpassword', function () {
+    return Inertia::render('Auth/ForgotPassword');
+});
+
 Route::middleware(['web'])->get('/login', [LoginController::class, 'render']);
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
 Route::post('/logout', function (Request $request) {

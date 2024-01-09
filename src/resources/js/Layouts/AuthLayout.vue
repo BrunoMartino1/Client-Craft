@@ -1,7 +1,21 @@
 <script setup lang="ts">
+
 import CraftIcon from "@/Components/CraftIcon.vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
 import CraftButton from "@/Components/CraftButton.vue";
+import CraftIcon from "@/Components/CraftIcon.vue";
+
+interface Props {
+    authData: {
+        pageIntroH1: string;
+        pageIntroP: string;
+        submitButtonLabel: string;
+        pageFooterP: string;
+        pageFooterLink: string;
+    };
+}
+
+const props = defineProps<Props>();
 
 interface Props {
     submitting: boolean;
@@ -31,8 +45,8 @@ const emit = defineEmits(["submit"]);
             class="formSection grow bg-blue-dark-heavy flex flex-col justify-center px-7"
         >
             <div class="flex flex-col gap-4 mb-10">
-                <h1 class="font-bold text-2xl">Welcome to Client Craft</h1>
-                <p class="text-sm">Please sign-in to your account below</p>
+                <h1 class="font-bold text-2xl">{{ authData.pageIntroH1 }}</h1>
+                <p class="text-sm">{{ authData.pageIntroP }}</p>
             </div>
 
             <form @submit.prevent="emit('submit')" class="flex flex-col">
@@ -40,21 +54,25 @@ const emit = defineEmits(["submit"]);
                 <div class="fieldsContainer flex flex-col gap-4 mb-8">
                     <slot name="form" />
                 </div>
-                <CraftButton
-                    type="submit"
+                
+                <CraftButton 
+                    type="submit
                     :loading="submitting"
-                    class="bg-blue-light-heavy"
+                    class="bg-blue-light-heavy""
                 >
-                    Log in
+                    {{ authData.submitButtonLabel }}
                 </CraftButton>
             </form>
             <div class="footerActions mt-8 flex flex-col gap-8">
                 <slot name="footerActions">
                     <div class="flex gap-3 justify-center">
-                        <p>New on our plataform?</p>
-                        <Link class="text-blue-light-heavy font-medium" href="#"
-                            >Create an account</Link
+                        <p>{{ authData.pageFooterP }}</p>
+                        <Link
+                            class="text-blue-light-heavy font-medium"
+                            href="/register"
                         >
+                            {{ authData.pageFooterLink }}
+                        </Link>
                     </div>
                     <div class="separator">or</div>
                     <div class="socialMediaLogin flex justify-center gap-6">

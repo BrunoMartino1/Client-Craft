@@ -1,61 +1,79 @@
 <script setup>
-import { Head, useForm } from '@inertiajs/vue3';
-import AuthenticationCard from '@/Components/AuthenticationCard.vue';
-import AuthenticationCardLogo from '@/Components/AuthenticationCardLogo.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
+import { Head, Link, useForm } from "@inertiajs/vue3";
+import { onMounted } from "vue";
+import AuthenticationCard from "@/Components/AuthenticationCard.vue";
+import AuthenticationCardLogo from "@/Components/AuthenticationCardLogo.vue";
+import Checkbox from "@/Components/Checkbox.vue";
+import InputError from "@/Components/InputError.vue";
+import CraftInput from "@/Components/CraftInput.vue";
+import InputLabel from "@/Components/InputLabel.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import TextInput from "@/Components/TextInput.vue";
+import AuthLayout from "@/Layouts/AuthLayout.vue";
 
 defineProps({
+    canResetPassword: Boolean,
     status: String,
 });
 
 const form = useForm({
-    email: '',
+    username: "",
+    email: "",
+    password: "",
+    agree: false,
+});
+
+onMounted(() => {
+    axios.get("/sanctum/csrf-cookie").then((response) => {
+        console.log(response);
+    });
 });
 
 const submit = () => {
-    form.post(route('password.email'));
+    form.transform((data) => ({
+        ...data,
+        agree: form.agree ? "on" : "",
+    })).post(route("login"), {
+        onFinish: () => form.reset("password"),
+    });
+};
+
+const authLabels = {
+    pageIntroH1: "Forgot Password",
+    pageIntroP:
+        "Enter your email and we'll send you instructions to reset your password",
+    submitButtonLabel: "Send",
 };
 </script>
 
 <template>
-    <Head title="Forgot Password" />
+    <AuthLayout @submit="submit" :auth-data="authLabels">
+        <Head title="Forgot Password" />
 
-    <AuthenticationCard>
-        <template #logo>
-            <AuthenticationCardLogo />
+        <template #hero>
+            <img src="/images/forgotPasswordHero.svg" alt="Login hero image" />
         </template>
 
-        <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-            Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.
-        </div>
+        <template #form>
+            <!-- EMAIL INPUT -->
+            <CraftInput
+                v-model="form.email"
+                placeholder="Email"
+                type="email"
+                icon="show-outline-black"
+            />
+        </template>
 
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
-            {{ status }}
-        </div>
-
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
-                <TextInput
-                    id="email"
-                    v-model="form.email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
-                <InputError class="mt-2" :message="form.errors.email" />
+        <template #footerActions>
+            <div class="flex gap-3 justify-center">
+                <Link class="text-blue-light-heavy font-medium" href="/login"
+                    >&lt; Back to login</Link
+                >
             </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Email Password Reset Link
-                </PrimaryButton>
-            </div>
-        </form>
-    </AuthenticationCard>
+        </template>
+    </AuthLayout>
 </template>
+
+<style scoped lang="scss">
+/* Add your custom styles here */
+</style>

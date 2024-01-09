@@ -1,10 +1,15 @@
-<script setup lang="ts">
+<script setup>
 import { Head, Link, useForm } from "@inertiajs/vue3";
 import { onMounted, ref } from "vue";
+import AuthenticationCard from "@/Components/AuthenticationCard.vue";
+import AuthenticationCardLogo from "@/Components/AuthenticationCardLogo.vue";
+import Checkbox from "@/Components/Checkbox.vue";
+import InputError from "@/Components/InputError.vue";
 import CraftInput from "@/Components/CraftInput.vue";
+import InputLabel from "@/Components/InputLabel.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import TextInput from "@/Components/TextInput.vue";
 import AuthLayout from "@/Layouts/AuthLayout.vue";
-import axios from "axios";
-import route from "ziggy-js";
 
 defineProps({
     canResetPassword: Boolean,
@@ -12,10 +17,13 @@ defineProps({
 });
 
 const form = useForm({
+    username: "",
     email: "",
     password: "",
-    remember: false,
+    agree: false,
 });
+
+const submitButtonLabel = ref("Create Account");
 
 onMounted(() => {
     axios.get("/sanctum/csrf-cookie").then((response) => {
@@ -23,38 +31,40 @@ onMounted(() => {
     });
 });
 
-const submitting = ref<boolean>(false);
 const submit = () => {
-    submitting.value = true;
     form.transform((data) => ({
         ...data,
-        remember: form.remember ? "on" : "",
+        agree: form.agree ? "on" : "",
     })).post(route("login"), {
-        onFinish: () => {
-            form.reset("password");
-            submitting.value = false;
-        },
+        onFinish: () => form.reset("password"),
     });
 };
 
 const authLabels = {
-    pageIntroH1: "Welcome to Client Craft",
-    pageIntroP: "Please sign-in to your account below",
-    submitButtonLabel: "Login",
-    pageFooterP: "New on our plataform?",
-    pageFooterLink: "Create an account",
+    pageIntroH1: "Let's give the first step",
+    pageIntroP: "Fill your data below to create your account",
+    submitButtonLabel: "Create Account",
+    pageFooterP: "Already have an account?",
+    pageFooterLink: "Sign-in instead",
 };
 </script>
 
 <template>
-    <AuthLayout :submitting="submitting" @submit="submit" :auth-data="authLabels">
-        <Head title="Log in" />
+    <AuthLayout @submit="submit" :auth-data="authLabels">
+        <Head title="Register" />
 
         <template #hero>
-            <img src="/images/loginHero.svg" alt="Login hero image" />
+            <img src="/images/registerHero.svg" alt="Login hero image" />
         </template>
 
         <template #form>
+            <!-- USERNAME INPUT -->
+            <CraftInput
+                v-model="form.username"
+                placeholder="Username"
+                type="text"
+            />
+
             <!-- EMAIL INPUT -->
             <CraftInput v-model="form.email" placeholder="Email" type="email" />
 
@@ -79,16 +89,9 @@ const authLabels = {
                     <label
                         for="checkbox-1"
                         class="text-sm select-none ml-3 font-medium text-gray-900"
-                        >Remember me</label
+                        >I Agree to privacy policy & terms</label
                     >
                 </div>
-
-                <Link
-                    href="/forgotpassword"
-                    class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
-                >
-                    Forgot password?
-                </Link>
             </div>
         </template>
     </AuthLayout>
